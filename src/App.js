@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import AutoComplete from './components/AutoComplete';
+import Layout from './components/Layout';
 
-function App() {
+const ROUTES = [{ path: '/', component: AutoComplete }];
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Router>
+        <Switch>
+          {ROUTES.map((route, i) => (
+            <Route
+              key={`corporation-route-${i}`}
+              path={route.path}
+              render={routerProps =>
+                React.createElement(route.component, {
+                  ...routerProps,
+                })
+              }
+              exact
+            />
+          ))}
+        </Switch>
+      </Router>
+    </Layout>
   );
-}
+};
 
 export default App;
