@@ -1,44 +1,28 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
-import { AutoComplete } from './style';
 import { top100Films } from '../../seed/data';
-import { makeStyles } from '@material-ui/core/styles';
+import Tabs from '../Tabs';
+import { WithStyle, MakeStyle, StyledComponents } from './variants';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& .MuiInputLabel-outlined:not(.MuiInputLabel-shrink)': {
-      transform: 'translate(34px, 20px) scale(1);',
-    },
+const MUiComponents = [
+  {
+    key: 'Autocomplete-1',
+    title: 'WithStyle',
+    Component: <WithStyle seedArray={top100Films} />,
   },
-  inputRoot: {
-    color: 'purple',
-    '&[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input:first-child': {
-      paddingLeft: 26,
-    },
-    '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: 'green',
-    },
-    '&:hover .MuiOutlinedInput-notchedOutline': {
-      borderColor: 'red',
-    },
-    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-      borderColor: 'purple',
-    },
+  {
+    key: 'Autocomplete-2',
+    title: 'makeStyles',
+    Component: <MakeStyle seedArray={top100Films} />,
   },
-}));
+  {
+    key: 'Autocomplete-3',
+    title: 'styled-components',
+    Component: <StyledComponents seedArray={top100Films} />,
+  },
+];
 
-const ComboBox = () => {
-  const classes = useStyles();
-  return (
-    <AutoComplete
-      classes={classes}
-      options={top100Films}
-      getOptionLabel={option => option.title}
-      renderInput={params => (
-        <TextField {...params} label='Combo box' variant='outlined' />
-      )}
-    />
-  );
+const AutoComplete = () => {
+  return <Tabs MUiComponents={MUiComponents} />;
 };
 
-export default ComboBox;
+export default AutoComplete;
